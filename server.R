@@ -1,26 +1,18 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
+options(stringsAsFactors = FALSE)
 
 library(shiny)
+library(xts)
+library(quantmod)
+Sys.setenv(TZ='UTC')
+source('functions.R')
+dat <- readRDS('data/EURUSD_M1_Ask.rds')
+dat <- to.hourly(dat, indexAt='startof')
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-   
-  output$distPlot <- renderPlot({
-    
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2] 
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
-  })
+   output$Chart <- renderPlot({
+     input$Start
+     chart_Series(getRandomTimepoint(dat, 20), name='')
+   })
   
 })

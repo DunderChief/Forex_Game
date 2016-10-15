@@ -13,16 +13,17 @@ library(shiny)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Can you beat the high score?"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
+      actionButton('Start', label='Begin Game'),
+      plotOutput("Chart"),
+      hr(),
+      actionButton('Buy', label='Buy'),
+      actionButton('Hold', label='Hold'),
+      actionButton('Sell', label='Sell')
     ),
     
     # Show a plot of the generated distribution
