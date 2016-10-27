@@ -35,23 +35,25 @@ shinyServer(function(input, output) {
   })
   
   output$Chart <- renderPlot({
-    chart_Series(dat[values$index], name='')
-    add(points(x=values$points$x, y=values$points$y, pch=values$points$pch, 
-           col=values$points$col, bg='black'))
+    plot(chart_Series(dat[values$index], name=''))
+    points(x=values$points$x, y=values$points$y, pch=values$points$pch, 
+           col='black', bg=values$points$col, cex=3)
+    
   })
   # On Trade decisions
   #____________________________________________
   observeEvent(input$Buy, {
+    
     values$iter <- values$iter + 1
     values$current_position <- 'Buy'
     values$index <- values$index + 1
     last <- Cl(last(dat[values$index], n=2))
     values$pips <- values$pips + (as.numeric(last[2]) - as.numeric(last[1]))*1e4
-    values$points$x <- c(values$points$x, n_candles)
-    values$points$y <- c(values$points$y, last[2])
+    values$points$x <- values$points$x - 1
+    values$points$x <- c(values$points$x, n_candles + 1.25)
+    values$points$y <- c(values$points$y, as.numeric(last[2]-.0005))
     values$points$pch <- c(values$points$pch, 24)
     values$points$col <- c(values$points$col, 'green')
-    values$points$x <- values$points$x - 1
   })
   
   observeEvent(input$Sell, {
