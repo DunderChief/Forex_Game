@@ -16,3 +16,15 @@ getRandomWeek <- function(dat){
   out <- dat[.indexweek(dat) == randWeek][1:25,]
   return(out)
 }
+
+randomTrading <- function(this.week, n_candles) {
+  # Each turn, the play can either buy, sell, or have no position
+  # permutate these possiblities to see where you land vs. randomness
+  ret <- abs(as.numeric(diff(Cl(this.week)) * 1e4))
+  ret <- ret[(n_candles+1):length(ret)]
+  total <- c()
+  for(xx in 1:1000){
+    total <- c(total, sum(ret * sample(-1:1, size=length(ret), replace=TRUE)))
+  }
+  return(total)
+}

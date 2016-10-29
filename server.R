@@ -13,10 +13,9 @@ max_tries <- 10
 risk <- .01
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  
-  
-  
+
   # Reactive Values
+  #______________________________________________________________________
   values <- reactiveValues(iter=0,
                            pips=0,
                            current_position='None',
@@ -26,7 +25,8 @@ shinyServer(function(input, output) {
                                              pch=integer(0), 
                                              col=character(0)),
                            this.week=getRandomWeek(dat),
-                           allDone='How much can you make in one week?'
+                           allDone='How much can you make in one week?',
+                           quantile=NULL
                            )  
   
   # Candlestick chart
@@ -37,11 +37,16 @@ shinyServer(function(input, output) {
       points(x=values$points$x, y=values$points$y, pch=values$points$pch, 
              col='black', bg=values$points$col, cex=1)
     } else {
-      hist(rnorm(100))
+      rand <- randomTrading(values$this.week, n_candles)
+      values$quantile <- length(rand[rand <= values$pips])/length(rand)*100
+      hist(rand, breaks=50,
+           main='How you compared to random decisions (1000 permutations):')
+      abline(v=values$pips)
     }
   })
   
-
+  # On New Game Start
+  #______________________________________________________________________
   observeEvent(input$Start, {
     # Reset all values
     values$iter <- 0
@@ -58,7 +63,7 @@ shinyServer(function(input, output) {
   
   
   # On Trade decisions
-  #____________________________________________
+  #_______________________________________________________________________
   observeEvent(input$Buy, {
     
     # Iterate and change position
@@ -129,7 +134,7 @@ shinyServer(function(input, output) {
   
   
   
-  # Print out some values
+  # Value Boxes
   #______________________________________
   
   # Current position
@@ -166,9 +171,11 @@ shinyServer(function(input, output) {
     )
   })
   
+  # UI
+  #___________________________________________________________________
   output$endScreen <- renderUI({
-    if(values$allDone == 'How much can you make in one week?') {
-      box(title=values$allDone, 
+    if(values$allDone != 'GAME OVER') {
+      box(title=values$allDone,
           background='aqua', width=NULL,
           
           actionButton('Start', label='Start New Game'),
@@ -187,7 +194,8 @@ shinyServer(function(input, output) {
     } else {
       box(title=values$allDone, 
           background='aqua', width=NULL,
-          
+          h1(paste('Score:', values$quantile)),
+          h5('(percentile compared to random trading choices)'),
           actionButton('Start', label='Start New Game'),
           hr(),
           plotOutput('Chart'),
