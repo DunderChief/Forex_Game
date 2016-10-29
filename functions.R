@@ -13,7 +13,7 @@ getRandomIndex <- function(dat, n) {
 getRandomWeek <- function(dat){
   weeks <- unique(.indexweek(dat))
   randWeek <- sample(weeks[c(-1, -length(weeks))], size=1)
-  out <- dat[.indexweek(dat) == randWeek][1:25,]
+  out <- dat[.indexweek(dat) == randWeek]
   return(out)
 }
 
