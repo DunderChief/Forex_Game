@@ -36,12 +36,14 @@ shinyServer(function(input, output) {
       plot(chart_Series(values$this.week[values$index], name='EUR/USD Hourly'))
       points(x=values$points$x, y=values$points$y, pch=values$points$pch, 
              col='black', bg=values$points$col, cex=1)
+      graphics::box(lwd=4, which='figure')
     } else {
       rand <- randomTrading(values$this.week, n_candles)
       values$quantile <- length(rand[rand <= values$pips])/length(rand)*100
       hist(rand, breaks=50,
            main='How you compared to random decisions (1000 permutations):')
       abline(v=values$pips, col='red', lwd=3)
+      graphics::box(lwd=4, which='figure')
     }
   })
   
