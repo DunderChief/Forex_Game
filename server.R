@@ -41,7 +41,7 @@ shinyServer(function(input, output) {
       values$quantile <- length(rand[rand <= values$pips])/length(rand)*100
       hist(rand, breaks=50,
            main='How you compared to random decisions (1000 permutations):')
-      abline(v=values$pips)
+      abline(v=values$pips, col='red', lwd=3)
     }
   })
   
@@ -169,6 +169,13 @@ shinyServer(function(input, output) {
       subtitle="Pips P/L", icon = icon,
       color = color
     )
+  })
+  
+  # Day of Week
+  output$Time <- renderValueBox({
+    time <- index(last(values$this.week[values$index]))
+    time <- format(time, format='%a %H:%M')
+    valueBox(time, subtitle='Ends on Friday', icon=icon('time', lib='glyphicon'))
   })
   
   # UI
