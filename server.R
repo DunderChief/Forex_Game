@@ -24,7 +24,7 @@ shinyServer(function(input, output) {
                                              y=numeric(0), 
                                              pch=integer(0), 
                                              col=character(0)),
-                           this.week=getRandomWeek(dat),
+                           this.week=getRandomWeek(dat['2009/']),
                            allDone='How much can you make in one week?',
                            quantile=NULL
                            )  
@@ -47,6 +47,17 @@ shinyServer(function(input, output) {
     }
   })
   
+  # Daily Chart
+  output$DailyChart <- renderPlot({
+    week_start <- first(index(values$this.week))
+    daily_start <- week_start - as.difftime(100, unit = "days")
+    
+    plot(chart_Series(dat[paste0(daily_start, '/', week_start),], 
+                      name='Last 100 days with SMA 200',
+                      type='line', TA='add_SMA(n=200)'))
+    
+    graphics::box(lwd=4, which='figure')
+  })
   # On New Game Start
   #______________________________________________________________________
   observeEvent(input$Start, {
@@ -55,7 +66,7 @@ shinyServer(function(input, output) {
     values$pips <- 0
     values$current_position <- 'None'
     values$index <- 1:n_candles
-    values$this.week <- getRandomWeek(dat)
+    values$this.week <- getRandomWeek(dat['2009/'])
     values$points <- data.frame(x=numeric(0), 
                                 y=numeric(0), 
                                 pch=integer(0), 

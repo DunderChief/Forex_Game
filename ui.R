@@ -14,7 +14,8 @@ shinyUI(dashboardPage(title="Forex Game", skin='yellow',
         column(width=4,
                valueBoxOutput(width=12, 'Pips'),
                valueBoxOutput(width=12, 'Position'),
-               valueBoxOutput(width=12, 'Time')
+               valueBoxOutput(width=12, 'Time'),
+               plotOutput('DailyChart', height='200px')
         )
       )
     )

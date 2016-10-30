@@ -11,11 +11,14 @@ getRandomIndex <- function(dat, n) {
 }
 
 getRandomWeek <- function(dat){
-  # Remove weekends and Friday afternoons
-  
+  # Remove Saturdays and Sundays
+  dat <- dat[!.indexwday(dat) %in% c(0, 6),]
+  # Literally after 1200 EST (1600 UTC)
+  isFridayAfternoons <- .indexwday(dat) == 5 & .indexhour(dat) >= 16
+  dat <- dat[!isFridayAfternoons, ]
   weeks <- unique(.indexweek(dat))
   randWeek <- sample(weeks[c(-1, -length(weeks))], size=1)
-  out <- dat[.indexweek(dat) == randWeek][1:40, ]
+  out <- dat[.indexweek(dat) == randWeek]
   return(out)
 }
 
