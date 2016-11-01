@@ -2,4 +2,4 @@ This is a simple trading game where you see how much you can make in 1 week usin
 
 The ultimate goal is to do an experiment to see if I can perform better by *listening* to price action rather than *viewing* a candlestick chart. Where returns are converted to a sound whose frequency indicates positive/negative return, and amplitude signifies the magnitude of return. My hypothesis is that humans are better suited to detect time series patterns through hearing. For instance looking at a graph of someone saying 'Hello' is indistinguishable to any other word.
 
-This most recent stable version is hosted at opendimensionlaboratories.com:3838/Forex_Game
+This most recent stable version is hosted at [opendimensionlaboratories.com:3838/Forex_Game](opendimensionlaboratories.com:3838/Forex_Game)
