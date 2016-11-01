@@ -1,5 +1,5 @@
-This is a simple trading game where you see how much you can make in 1 week using only technical analysis. For now this can be useful in getting a feel for manual trading, finding novel buying patterns, or just a fun game to play.
+#### This is a simple trading game to see how much you can make in 1 week using only technical analysis. It can be useful in getting a feel for manual trading, finding novel buying patterns, or just a fun game to play.
 
-The ultimate goal is to do an experiment to see if I can perform better by *listening* to price action rather than *viewing* a candlestick chart. Where returns are converted to a sound whose frequency indicates positive/negative return, and amplitude signifies the magnitude of return. My hypothesis is that humans are better suited to detect time series patterns through hearing. For instance looking at a graph of someone saying 'Hello' is indistinguishable to any other word.
+#### The ultimate goal is to do an experiment to see if I can perform better by *listening* to price action rather than *viewing* a candlestick chart. Where returns are converted to a sound whose frequency indicates positive/negative return, and amplitude signifies the magnitude of return. My theory is that humans are better suited to detect time series patterns through hearing. For instance looking at a graph of someone saying 'Hello' is indistinguishable to any other word.
 
-The most recent stable version is hosted at [opendimensionlaboratories.com:3838/Forex_Game](opendimensionlaboratories.com:3838/Forex_Game)
+#### The most recent stable version is hosted at [opendimensionlaboratories.com:3838/Forex_Game](opendimensionlaboratories.com:3838/Forex_Game)
